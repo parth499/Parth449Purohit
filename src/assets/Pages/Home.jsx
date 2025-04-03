@@ -1,101 +1,151 @@
 import React from "react";
+import { motion } from "framer-motion";
+import { homeData } from "../Data/Homedata.js";
 import undraw1 from "../Images/HomeImg/undraw1.svg";
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      when: "beforeChildren"
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { type: "spring", stiffness: 100 }
+  }
+};
+
+const fadeIn = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.8 } }
+};
 
 const Home = () => {
   return (
-    <div>
-      <div>
-        <h1 className="text-xl  text-center underline mt-10 ">About Me</h1>
-        <div className="sm:flex p-6">
-          <img
-            className="p-10"
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+    >
+      {/* About Me Section */}
+      <section className="py-12">
+        <motion.h1 
+          variants={itemVariants}
+          className="text-2xl font-bold text-center mb-12 text-purple-600 underline underline-offset-8"
+        >
+          {homeData.aboutMe.title}
+        </motion.h1>
+        
+        <div className="flex flex-col lg:flex-row items-center gap-8">
+          <motion.img
+            variants={itemVariants}
             src={undraw1}
             alt="About Me Illustration"
-            width={500}
-            height={90}
+            className="w-full max-w-md lg:max-w-lg xl:max-w-xl rounded-full shadow-xl"
+            whileHover={{ scale: 1.02 }}
+            transition={{ type: "spring", stiffness: 400 }}
           />
-          <p className="p-10 font-thin">
-            I am a dynamic and visionary web developer, deeply passionate about
-            crafting innovative, efficient, and scalable digital solutions that
-            redefine user experiences. With a strong foundation in modern
-            ECMAScript, React, and Redux, I specialize in creating responsive,
-            user-centric web designs that seamlessly adapt to evolving
-            technological landscapes. <br></br>My expertise extends to modern
-            JavaScript frameworks and collaborative backend integration,
-            ensuring cohesive development and robust application performance.
-            With practical experience in full-stack web development, I am adept
-            at utilizing version control systems like GitHub, enabling
-            streamlined collaboration and efficient code management. I also
-            possess a solid understanding of PHP and other backend technologies,
-            which complements my ability to work seamlessly across diverse
-            development environments. My technical acumen is matched by my
-            commitment to lifelong learning, as I constantly seek opportunities
-            to enhance my skills and embrace emerging trends in web development.
-            Looking forward, my career aspiration is to excel as a frontend
-            developer specializing in cloud-based user interfaces.<br></br>I am
-            driven by the ambition to leverage cutting-edge technologies and
-            create seamless, intuitive, and visually compelling user interfaces
-            that elevate digital interactions. By mastering frontend frameworks,
-            cloud integration techniques, and advanced design principles, I aim
-            to contribute to the development of innovative web applications that
-            integrate effortlessly with cloud services. I envision collaborating
-            with multidisciplinary teams to deliver scalable, secure, and
-            responsive solutions tailored to diverse user needs and strategic
-            business objectives. My goal is to actively participate in shaping
-            the future of digital experiences by blending creativity with
-            technology to redefine the way users interact with the web. Fueled
-            by a passion for excellence and innovation, I aspire to leave an
-            indelible mark in the realm of frontend development, contributing to
-            a more interconnected and user-friendly digital world.
-          </p>
+          
+          <motion.div 
+            variants={containerVariants}
+            className="space-y-6 text-lg text-gray-700 dark:text-gray-300"
+          >
+            {homeData.aboutMe.content.map((paragraph, index) => (
+              <motion.p 
+                key={index}
+                variants={itemVariants}
+                className="leading-relaxed"
+              >
+                {paragraph}
+              </motion.p>
+            ))}
+          </motion.div>
         </div>
-      </div>
-      <div className="m-5">
-        <h1 className="text-center text-xl m-5 underline">About My Skill!</h1>
-        <p className=" ml-7 font-thin m-10">
-          Welcome to My Portfolio! About My Skills As a Full-Stack Developer, I
-          specialize in crafting dynamic, user-friendly web experiences. My
-          expertise includes: <br></br> Frontend Skills HTML, CSS, JavaScript:
-          Building responsive and interactive user interfaces. React and Redux:
-          Developing scalable single-page applications. Tailwind CSS: Designing
-          sleek, modern layouts with minimal effort. Backend Skills Node.js and
-          Express.js: Creating robust, scalable server-side logic. MongoDB:
-          Managing and integrating dynamic data with ease. PHP: Delivering
-          reliable backend solutions for web applications. Whether it’s creating
-          visually appealing designs, optimizing performance, or managing data
-          flow between the client and server, I enjoy solving complex problems
-          and building innovative solutions.
-        </p>
+      </section>
 
-        <p className="  ml-5 sm:text-1xl m-5 mr-8 ">
-          Check Out My Projects 🚀 Explore how I’ve combined these skills to
-          deliver impactful solutions in real-world scenarios.
-        </p>
-        <div className="flex items-center justify-center ">
-          <button className="w-44 h-12 rounded-full bg-blue-500 hover:bg-blue-300 text-yellow-100 font-semibold m-10 p-2">
-            {" "}
-            Check My Project 🚀{" "}
-          </button>
-        </div>
-      </div>
+      {/* Skills Section */}
+      <section className="py-12 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl px-8 my-12">
+        <motion.h1 
+          variants={itemVariants}
+          className="text-3xl font-bold text-center mb-12 text-purple-600 dark:text-purple-400 underline underline-offset-8"
+        >
+          {homeData.skills.title}
+        </motion.h1>
+        
+        <motion.div variants={containerVariants} className="space-y-12">
+          <motion.p variants={itemVariants} className="text-center text-xl mb-8">
+            {homeData.skills.intro}
+          </motion.p>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            {homeData.skills.skillCategories.map((category, index) => (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                whileHover={{ y: -5 }}
+                className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg"
+              >
+                <h3 className="text-2xl font-semibold mb-4 text-purple-600 dark:text-purple-400">
+                  {category.title}
+                </h3>
+                <ul className="space-y-3">
+                  {category.items.map((item, i) => (
+                    <motion.li 
+                      key={i}
+                      className="flex items-start"
+                      whileHover={{ x: 5 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <span className="text-purple-500 mr-2">•</span>
+                      <span>{item}</span>
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
+          
+          <motion.div 
+            variants={itemVariants}
+            className="text-center mt-8"
+          >
+            <p className="text-xl mb-6">{homeData.skills.conclusion}</p>
+            <motion.button
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: "0 5px 15px rgba(124, 58, 237, 0.3)"
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-gradient-to-r from-purple-600 to-blue-500 text-white px-8 py-3 rounded-full text-lg font-semibold"
+            >
+              Check My Projects 🚀
+            </motion.button>
+          </motion.div>
+        </motion.div>
+      </section>
 
-      <div className=" w-auto h-96 m-5  sm:m-5 sm:h-36">
-        <p className="p-2 font-thin">
-          As a front-end developer, I possess a comprehensive skill set rooted
-          in modern web development principles and cutting-edge technologies. My
-          expertise spans semantic HTML5 and advanced CSS3, where I excel in
-          crafting responsive, cross-browser-compatible designs enriched with
-          animations, transitions, and layouts utilizing flexbox and grid. With
-          a robust understanding of JavaScript ES6+ features, I am proficient in
-          DOM manipulation, asynchronous programming, and debugging, ensuring
-          seamless interactivity and functionality. I specialize in frameworks
-          like React.js, leveraging hooks such as useState and useEffect, and
-          employ Context API or Redux for efficient state management.
-          Additionally, I have hands-on experience with Next.js for server-side
-          rendering and SEO optimization. 
-        </p>
-      </div>
-    </div>
+      {/* Additional Info Section */}
+      <motion.section 
+        variants={fadeIn}
+        className="py-12 bg-white dark:bg-gray-800 rounded-3xl shadow-lg px-8 my-12"
+      >
+        <motion.p 
+          variants={itemVariants}
+          className="text-lg leading-relaxed text-gray-700 dark:text-gray-300"
+        >
+          {homeData.additionalInfo.content}
+        </motion.p>
+      </motion.section>
+    </motion.div>
   );
 };
 
