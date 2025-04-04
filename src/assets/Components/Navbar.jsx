@@ -5,7 +5,7 @@ import logo from "../Images/logo.jpg";
 import { motion, useAnimation } from "framer-motion";
 
 const Navbar = () => {
-  const { isDarkMode = true, toggleDarkMode } = useDarkMode(); // Default to dark
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
   const location = useLocation();
   const controls = useAnimation();
 

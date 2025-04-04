@@ -1,99 +1,161 @@
 import React from "react";
+import { motion } from "framer-motion";
+import { skillsData } from "../Data/Skilldata";
 
-const SkillsData = () => {
+const Skills = () => {
+  // Animation variants
+  const container = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { type: "spring", stiffness: 100 }
+    }
+  };
+
+  const hoverEffect = {
+    hover: {
+      y: -5,
+      boxShadow: "0 10px 25px -10px rgba(0, 0, 0, 0.1)",
+      transition: { type: "spring", stiffness: 300 }
+    }
+  };
+
   return (
-    <div className="flex flex-wrap sm:m-32 sm:my-3 ml-14  mt-6">
-      <div className="w-80 sm:h-72 h-96 bg-gray-200 rounded-2xl m-5">
-        <h1 className="text-center m-2 text-xl underline font-mono ">
-          Front-end
-        </h1>
-        <ul className="text-center m-7 font-thin">
-          <li>HTML5</li>
-          <li>CSS5</li>
-          <li>TailwindCSS</li>
-          <li>React.JS+Redux</li>
-          <li>JavaScript + ES6</li>
-        </ul>
+    <section className="relative py-16 overflow-hidden">
+      {/* Animated background */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={i}
+            initial={{
+              x: Math.random() * 100,
+              y: Math.random() * 100,
+              opacity: 0.1
+            }}
+            animate={{
+              x: [null, Math.random() * 200 - 100],
+              y: [null, Math.random() * 100 - 50],
+              opacity: [0.1, 0.2, 0.1]
+            }}
+            transition={{
+              duration: 20 + Math.random() * 20,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "linear"
+            }}
+            className={`absolute rounded-full ${
+              i % 2 === 0 ? "bg-purple-200/30" : "bg-blue-200/30"
+            } blur-xl`}
+            style={{
+              width: `${Math.random() * 300 + 100}px`,
+              height: `${Math.random() * 300 + 100}px`,
+            }}
+          />
+        ))}
       </div>
-      <div className="w-80 h-72 bg-gray-400 rounded-2xl m-5">
-        <h1 className="text-center m-2 text-xl underline font-mono ">
-          Back-end
-        </h1>
-        <ul className="text-center m-7 font-thin">
-          <li>Node.js</li>
-          <li>Php</li>
-          <li>Express.js</li>
-        </ul>
+
+      <div className="container mx-auto px-6">
+        {/* Skills Cards */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="flex flex-wrap justify-center gap-6 mb-16"
+        >
+          {skillsData.categories.map((category, index) => (
+            <motion.div
+              key={index}
+              variants={item}
+              whileHover="hover"
+              className={`w-full sm:w-80 rounded-2xl p-6 ${category.bgColor} backdrop-blur-sm bg-opacity-70 shadow-lg bg-white`}
+            >
+              <motion.h2 
+                className="text-2xl font-bold text-center mb-4 flex items-center justify-center gap-2 "
+                whileHover={{ scale: 1.05 }}
+              >
+                <span className="text-3xl">{category.emoji}</span>
+                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                  {category.title}
+                </span>
+              </motion.h2>
+              <motion.ul 
+                variants={container}
+                className="space-y-3 text-center"
+              >
+                {category.skills.map((skill, i) => (
+                  <motion.li
+                    key={i}
+                    variants={item}
+                    className="text-gray-700 dark:text-gray-300 font-medium"
+                    whileHover={{ x: 5, color: "#7c3aed" }}
+                  >
+                    {skill}
+                  </motion.li>
+                ))}
+              </motion.ul>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Description Section */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="max-w-4xl mx-auto bg-white dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg"
+        >
+          <h2 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            My Developer Journey
+          </h2>
+          
+          <motion.div 
+            variants={container}
+            className="space-y-6 text-lg text-gray-700 dark:text-gray-300"
+          >
+            {skillsData.description.map((paragraph, index) => (
+              <motion.p
+                key={index}
+                variants={item}
+                className="leading-relaxed"
+              >
+                {paragraph}
+              </motion.p>
+            ))}
+          </motion.div>
+
+          <motion.div
+            className="text-center mt-10"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <motion.button
+              whileHover={{ 
+                boxShadow: "0 5px 15px rgba(99, 102, 241, 0.4)",
+                background: "linear-gradient(45deg, #7c3aed, #6366f1)"
+              }}
+              className="bg-gradient-to-r from-purple-600 to-blue-500 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg"
+            >
+              Explore My Projects 🚀
+            </motion.button>
+          </motion.div>
+        </motion.div>
       </div>
-      <div className="w-80 sm:h-72 h-96 bg-gray-200 rounded-2xl m-5">
-        <h1 className="text-center m-2 text-xl underline font-mono ">
-          DataBase
-        </h1>
-        <ul className="text-center m-7 font-thin">
-          <li>MongoDb</li>
-          <li>MySql</li>
-        </ul>
-      </div>
-      <div className="w-80 h-72 bg-gray-400  rounded-2xl m-5">
-        <h1 className="text-center m-2 text-xl underline font-mono ">
-          Programming
-        </h1>
-        <ul className="text-center m-7 font-thin">
-          <li>C</li>
-          <li>C++</li>
-          <li>Java (Basic)</li>
-          <li>DSA Basic </li>
-        </ul>
-      </div>
-      <div className="w-80 sm:h-72 h-96 bg-gray-200  rounded-2xl m-5">
-        <h1 className="text-center m-2 text-xl underline font-mono ">
-          Web Realated knowledge
-        </h1>
-        <ul className="text-center m-7 font-thin">
-          <li>AJAX</li>
-          <li>Redux</li>
-          <li>RTK-Query</li>
-          <li>Animation Libary</li>
-          <li>XML</li>
-          <li>Figma</li>
-          <li>Graph-QL</li>
-          <li>Routing</li>
-        </ul>
-      </div>
-      <div className=" w-80 h-72 bg-gray-400  rounded-2xl m-5">
-        <h1 className="text-center m-2 text-xl underline font-mono ">
-          Extra-Circular Activities
-        </h1>
-        <ul className="text-center m-7 font-thin">
-          <li>
-            Volleyball State Level <br></br> Player
-          </li>
-        </ul>
-      </div>
-      <div className="m-2">
-        <h1 className="text-center text-xl m-5">About My Skill!</h1>
-        <p className=" ml-7 font-thin m-10">Welcome to My Portfolio! About My Skills As a Full-Stack Developer, I
-        specialize in crafting dynamic, user-friendly web experiences. My
-        expertise includes: <br></br> Frontend Skills HTML, CSS, JavaScript: Building
-        responsive and interactive user interfaces. React and Redux: Developing
-        scalable single-page applications. Tailwind CSS: Designing sleek, modern
-        layouts with minimal effort. Backend Skills Node.js and Express.js:
-        Creating robust, scalable server-side logic. MongoDB: Managing and
-        integrating dynamic data with ease. PHP: Delivering reliable backend
-        solutions for web applications. Whether it’s creating visually appealing
-        designs, optimizing performance, or managing data flow between the
-        client and server, I enjoy solving complex problems and building
-        innovative solutions.</p>
-      
-        <p className="  ml-5 sm:text-1xl m-5 mr-8 ">Check Out My Projects 🚀
-        Explore how I’ve combined these skills to deliver impactful solutions in real-world scenarios.</p>
-        <div className="flex items-center justify-center ">
-        <button className="w-44 h-12 rounded-full bg-blue-500 hover:bg-blue-300 text-yellow-100 font-semibold m-10 p-2"> Check My Project 🚀 </button>
-        </div>
-      </div>
-      
-    </div>
+    </section>
   );
 };
 
-export default SkillsData;
+export default Skills;
