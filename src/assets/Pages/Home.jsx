@@ -4,6 +4,8 @@ import { homeData } from "../Data/Homedata.js";
 import undraw1 from "../Images/HomeImg/undraw1.svg";
 import ScrollCardsComponent from "../Components/ScrollCardsComponent.jsx";
 import VideoShowcaseComponent from "../Components/VideoShowcaseComponent.jsx";
+import Services from "../Components/Services.jsx";
+
 
 // Animation variants remain exactly the same
 const containerVariants = {
@@ -229,6 +231,7 @@ const Home = () => {
         </motion.p>
       </motion.section>
     </motion.div>
+    <Services/>
     </>
   );
 };

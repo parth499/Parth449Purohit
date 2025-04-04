@@ -170,7 +170,7 @@ const Navbar = () => {
               onClick={toggleDarkMode}
               whileHover={{ scale: 1.05, rotate: 5 }}
               whileTap={{ scale: 0.95 }}
-              className={`px-4 py-2 rounded-full flex items-center gap-2 bg-gray-800 text-white border border-gray-700 hover:bg-gray-700 transition-all`}
+              className={`px-4 py-2 rounded-full flex items-center gap-2 bg-gray-800 text-white border border-gray-500 hover:bg-gray-700 transition-all`}
             >
               <motion.span
                 animate={{

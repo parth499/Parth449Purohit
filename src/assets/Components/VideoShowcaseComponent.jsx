@@ -58,7 +58,7 @@ const VideoShowcaseComponent = () => {
               transition={{ duration: 0.8 }}
               className="text-4xl md:text-6xl font-bold text-white mb-6"
             >
-              Welcome 
+              🚀Build Something Amazing Together
             </motion.h1>
 
             <motion.p
@@ -67,7 +67,7 @@ const VideoShowcaseComponent = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-xl text-white/80 max-w-2xl mb-8"
             >
-              Development with Technology
+             I'm Parth, a passionate web developer focused on building stunning, responsive, and interactive digital experiences. Whether you're looking to collaborate on an exciting project, need a developer who brings ideas to life, or just want to connect and share insights.
             </motion.p>
 
             <motion.div
@@ -77,10 +77,10 @@ const VideoShowcaseComponent = () => {
               className="flex gap-4"
             >
               <button className="px-6 py-3 bg-white text-black rounded-full font-medium">
-                Get Started
+                Services
               </button>
               <button className="px-6 py-3 border border-white text-white rounded-full font-medium">
-                Learn More
+                <span>Linkdin</span>
               </button>
             </motion.div>
           </motion.div>
