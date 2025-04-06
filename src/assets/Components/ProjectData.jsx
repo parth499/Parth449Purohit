@@ -76,7 +76,7 @@ const ProjectCard = ({ project }) => {
   return (
     <motion.div
       variants={itemVariants}
-      className="relative group overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300"
+      className="relative group overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 "
       whileHover={{ y: -10 }}
     >
       {/* Project Image */}
@@ -135,7 +135,7 @@ const ProjectData = () => {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      className="py-12 px-4 sm:px-6 lg:px-8"
+      className="py-12 px-4 sm:px-6 lg:px-8 m-9"
     >
       {/* Section Header */}
       <motion.div 
@@ -144,10 +144,10 @@ const ProjectData = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+        <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent m-5 p-2">
           My Projects
         </h2>
-        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto p-4">
           Here are some of my recent projects. Each one was built with different technologies and challenges.
         </p>
       </motion.div>
